@@ -75,6 +75,18 @@
     color: #333;
     text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
   }
+#mensajeAfk {
+  position: fixed;
+  bottom: 10px;
+  right: 10px;
+  background-color: black;
+  color: white;
+  padding: 10px;
+  border-radius: 5px;
+  display: none;
+  z-index: 1000; /* Asegúrate de que el mensaje esté por encima de otros elementos */
+  }
+    
 </style>
 </head>
 <body>
@@ -88,6 +100,7 @@
     <input type="text" id="user-input" placeholder="Escribe tu mensaje aquí...">
     <button id="send-button" onclick="sendMessage()">Enviar</button>
   </div>
+  <div id="mensajeAfk">Afk</div>
 </div>
 
 <script>
@@ -136,7 +149,36 @@ function displayMessage(message, sender) {
   container.appendChild(msgDiv);
   container.scrollTop = container.scrollHeight; // Desplazar al último mensaje
 }
+let tiempoDeInactividad;
+const mensajeAfk = document.getElementById('mensajeAfk');
 
+function mostrarMensajeAfk() {
+  mensajeAfk.style.display = 'block';
+}
+
+function ocultarMensajeAfk() {
+  mensajeAfk.style.display = 'none';
+}
+
+function reiniciarTiempoDeInactividad() {
+    // Si ya hay un temporizador, lo cancelamos
+    if (tiempoDeInactividad) clearTimeout(tiempoDeInactividad);
+    ocultarMensajeAfk();
+
+    // Establecemos un nuevo temporizador
+    tiempoDeInactividad = setTimeout(mostrarMensajeAfk, 5000); // Tiempo de espera de 5 segundos
+}
+
+// Eventos que reiniciarán el temporizador
+document.addEventListener('DOMContentLoaded', () => {
+  // Asegúrate de que el elemento mensajeAfk ya esté cargado en el DOM
+  mensajeAfk = document.getElementById('mensajeAfk');
+  reiniciarTiempoDeInactividad();
+});
+document.addEventListener('touchstart', reiniciarTiempoDeInactividad);
+document.addEventListener('click', reiniciarTiempoDeInactividad);
+document.addEventListener('keypress', reiniciarTiempoDeInactividad);
+  
 </script>
 </body>
 </html>
