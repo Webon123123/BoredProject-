@@ -98,7 +98,7 @@ var chatbotResponses = {
   "hola": "¡Hola! ¿Cómo puedo ayudarte hoy?",
   "adiós": "¡Hasta luego! Espero hablar contigo pronto.",
   "¿cómo estás?": "Estoy bien, ¡gracias por preguntar!",
-  "ayuda": "PBot v1.0 Pirateo de juegos , puedes comenzar con /gd2.2, puedes sugerir un juego a mi privado +51 953 432 204 📱",
+  "ayuda": "PBot v1.0 puedes comenzar con /gd2.2, puedes sugerir un juego a mi privado +51 953 432 204 📱",
   "uwu": "UwU~`",
   "puto":"Puto tu abuelo, 👻",
   "puta":"La tuya 🫵",
@@ -107,7 +107,22 @@ var chatbotResponses = {
   "/gd2.2": "Bien, el link para descargar es:                    🔰           📱             🔰   https://dl.alightmotionproapks.net/geometry-dash-apk-v2.2.13.apk",
   "gd":"Para obtener la version 2.2 de geometry dash escribe /gd2.2",
   "Si":"Zi 🤨",
-};
+  "pinga":"La que tiene tu madre 🥶",
+  "pene":"El que me chupas",
+  "whatssap:"+51 953 432 204",
+  "xd":"Me pregunto cuanto ganaria el que creo el xd al cobrar de derechos de autor xd",
+ "ban":"Me banearon de free fire pipipiii 😿", 
+".":"Si no vas a decir nada, mejor no escribas",
+  "Oye":"¿Si?",
+  "Weon":"Dios, un chileno 🤣",
+  "Webon":Deja de comer palomas y estudia 🦆",
+  "Perú":"ya bombardeenlo",
+  "peru":"lo mismo digo",
+  "chau":"chau, nunca te llame , pero chau",
+  "jodete":"No sé que ganas discutiendo conmigo",
+  "Maldito":"¿Acaso soy una persona real?"
+  "?":"Soy un bot , no soy una ia",
+  };
 
 function sendMessage() {
   var input = document.getElementById("user-input");
@@ -139,40 +154,7 @@ function displayMessage(message, sender) {
   container.appendChild(msgDiv);
   container.scrollTop = container.scrollHeight; // Desplazar al último mensaje
 }
-// Define el color normal de la página
-const colorNormal = '#FFFFFF'; // Blanco
 
-// Función para generar un color aleatorio
-function generarColorAleatorio() {
-  return '#' + Math.floor(Math.random()*16777215).toString(16);
-}
-
-// Función para cambiar el color de fondo
-function cambiarColorFondo(color) {
-  document.body.style.backgroundColor = color;
-}
-
-// Detectar inactividad (AFK)
-let tiempoInactividad;
-function reiniciarTiempoInactividad() {
-  // Cuando el usuario es activo, vuelve al color normal
-  cambiarColorFondo(colorNormal);
-
-  // Limpiar el tiempo de inactividad anterior
-  clearTimeout(tiempoInactividad);
-
-  // Establecer un nuevo tiempo de inactividad
-  tiempoInactividad = setTimeout(() => {
-    // Cambiar a un color aleatorio después de 5 segundos de inactividad
-    cambiarColorFondo(generarColorAleatorio());
-  }, 5000); // 5 segundos
-}
-
-// Eventos para detectar actividad del usuario
-window.onload = reiniciarTiempoInactividad;
-document.onmousemove = reiniciarTiempoInactividad;
-document.onkeypress = reiniciarTiempoInactividad;
-  
 </script>
 </body>
 </html>
