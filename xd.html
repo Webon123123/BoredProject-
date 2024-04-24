@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<title>Chatbot con Respuestas Predefinidas</title>
+<style>
+  body {
+    font-family: Arial, sans-serif;
+    background-color: #f9f9f9;
+  }
+  #chat-container {
+    width: 300px;
+    height: 400px;
+    border: 1px solid #ddd;
+    margin: auto;
+    padding: 10px;
+    background-color: #fff;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+  #message-container {
+    height: 350px;
+    overflow-y: scroll;
+  }
+  .message {
+    padding: 5px;
+    margin-bottom: 10px;
+    border-radius: 5px;
+  }
+  .user-message {
+    background-color: #e5e5ea;
+  }
+  .bot-message {
+    background-color: #f0f0f0;
+  }
+  #input-container {
+    display: flex;
+  }
+  #user-input {
+    flex-grow: 1;
+    padding: 5px;
+    border: 1px solid #ddd;
+    border-radius: 3px;
+  }
+  #send-button {
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 3px;
+    cursor: pointer;
+  }
+</style>
+</head>
+<body>
+<div id="chat-container">
+  <div id="message-container"></div>
+  <div id="input-container">
+    <input type="text" id="user-input" placeholder="Escribe tu mensaje aquí...">
+    <button id="send-button" onclick="sendMessage()">Enviar</button>
+  </div>
+</div>
+
+<script>
+// Objeto con 40 respuestas predefinidas
+var chatbotResponses = {
+  "hola": "¡Hola! ¿Cómo puedo ayudarte hoy?",
+  "adiós": "¡Hasta luego! Espero hablar contigo pronto.",
+  // ... Puedes agregar más respuestas aquí ...
+  "¿cómo estás?": "Estoy bien, ¡gracias por preguntar!",
+  "ayuda": "Claro, dime en qué puedo asistirte.",
+  // ... Continúa agregando hasta 40 respuestas ...
+};
+
+function sendMessage() {
+  var input = document.getElementById("user-input");
+  var message = input.value.trim();
+  if(message !== "") {
+    displayMessage(message, "user");
+    var botResponse = getBotResponse(message);
+    displayMessage(botResponse, "bot");
+  }
+  input.value = ""; // Limpiar el campo de entrada
+}
+
+function getBotResponse(message) {
+  // Convierte el mensaje a minúsculas para una mejor coincidencia
+  var lowerCaseMessage = message.toLowerCase();
+  
+  // Busca una respuesta predefinida
+  var response = chatbotResponses[lowerCaseMessage];
+  
+  // Si no se encuentra una respuesta, devuelve un mensaje genérico
+  return response || "Lo siento, no entiendo tu pregunta. ¿Puedes intentar con otra cosa?";
+}
+
+function displayMessage(message, sender) {
+  var container = document.getElementById("message-container");
+  var msgDiv = document.createElement("div");
+  msgDiv.classList.add("message", sender + "-message");
+  msgDiv.textContent = message;
+  container.appendChild(msgDiv);
+  container.scrollTop = container.scrollHeight; // Desplazar al último mensaje
+}
+
+</script>
+</body>
+</html>
