@@ -1,6 +1,6 @@
-`Bot de respuesta automática `
+`PBot , pirateo de juegos`
 </br></br></br>
-**Este codigo contiene respuestas automaticas al enviar un mensaje a un bot**
+**Puedes robarte el codigo si quieres xd**
 </br>
 </br>
 **Tambien tiene una pagina de inicio de sesion aunque no sirve para nada :v**
@@ -10,3 +10,5 @@
 </br>
 </br>
 **xd.html** *Es la parte donde esta el bot con respuestas personalizadas.*
+</br></br>
+**Me aburria e hice esto xd**
