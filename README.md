@@ -12,3 +12,5 @@
 **xd.html** *Es la parte donde esta el bot con respuestas personalizadas.*
 </br></br>
 **Me aburria e hice esto xd**
+</br> </br>
+**Ayuda** Escribelo en la página del bot para tener más información (o solo mira el codigo xd)
