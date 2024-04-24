@@ -9,4 +9,4 @@
 **inicio.html** *Es el codigo para el documento de inicio de sesión*
 </br>
 </br>
-**xd.html** *Es la parte donde esta el bot con respuestas personalizadas.
+**xd.html** *Es la parte donde esta el bot con respuestas personalizadas.*
