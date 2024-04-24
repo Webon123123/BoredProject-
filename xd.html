@@ -2,7 +2,7 @@
 <html lang="es">
 <head>
 <meta charset="UTF-8">
-<title>Chatbot con Respuestas Predefinidas</title>
+<title>PBot</title>
 <style>
   body {
     font-family: Arial, sans-serif;
@@ -47,10 +47,41 @@
     border: none;
     border-radius: 3px;
     cursor: pointer;
+  }  .profile-container {
+    display: flex;
+    align-items: center;
+    margin-bottom: 15px;
+  }
+  .profile-picture {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    background: linear-gradient(45deg, #6f9, #f96);
+    animation: rotate 5s linear infinite, pulse 2s infinite alternate;
+    margin-right: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+  }
+  @keyframes rotate {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+  }
+  @keyframes pulse {
+    from { transform: scale(1); }
+    to { transform: scale(1.1); }
+  }
+  .bot-name {
+    font-size: 20px;
+    font-weight: bold;
+    color: #333;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
   }
 </style>
 </head>
 <body>
+<div class="profile-container">
+  <div class="profile-picture"></div>
+  <div class="bot-name">PBot</div>
+</div>
 <div id="chat-container">
   <div id="message-container"></div>
   <div id="input-container">
@@ -60,14 +91,19 @@
 </div>
 
 <script>
-// Objeto con 40 respuestas predefinidas
 var chatbotResponses = {
   "hola": "¡Hola! ¿Cómo puedo ayudarte hoy?",
   "adiós": "¡Hasta luego! Espero hablar contigo pronto.",
-  // ... Puedes agregar más respuestas aquí ...
   "¿cómo estás?": "Estoy bien, ¡gracias por preguntar!",
-  "ayuda": "Claro, dime en qué puedo asistirte.",
-  // ... Continúa agregando hasta 40 respuestas ...
+  "ayuda": "Claro, dime en qué puedo asistirte...                O contacta a mi creador +51 953 432 204 📱 ",
+  "uwu": "UwU~`",
+  "puto":"Puto tu abuelo, 👻",
+  "puta":"La tuya 🫵",
+  "te amo":"Yo tambien, ahora dame plata 💵",
+  "matate":"Eso k w 🤨",
+  "/gd2.2": "Bien, el link para descargar es:                    🔰           📱             🔰   https://dl.alightmotionproapks.net/geometry-dash-apk-v2.2.13.apk",
+  "gd":"Para obtener la version 2.2 de geometry dash escribe /gd2.2"
+  
 };
 
 function sendMessage() {
