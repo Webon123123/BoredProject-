@@ -2,125 +2,93 @@
 <html lang="es">
 <head>
 <meta charset="UTF-8">
-<title>Editor de Texto y HTML</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Editor de Código HTML</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.2/codemirror.min.css">
 <style>
   body {
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    background-color: #f4f4f4;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-    margin: 0;
-  }
-  #editorContainer {
-    background-color: #fff;
-    border-radius: 8px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    background-color: #333;
+    font-family: 'Courier New', monospace;
+    color: #fff;
     padding: 20px;
-    width: 80%;
-    max-width: 800px;
   }
-  .editor {
-    border: none;
-    border-radius: 4px;
-    padding: 10px;
-    width: 100%;
-    height: 300px;
-    margin-bottom: 10px;
-    font-size: 16px;
-    box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.1);
-  }
-  .boton {
-    display: inline-block;
-    padding: 10px 20px;
-    margin: 5px;
+  .CodeMirror {
+    border: 1px solid #555;
     border-radius: 5px;
+    height: auto;
+  }
+  .button {
+    background-color: #0078d7;
     border: none;
-    background-color: #007BFF;
     color: white;
-    cursor: pointer;
+    padding: 10px 20px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
     font-size: 16px;
-    transition: background-color 0.3s;
+    margin: 4px 2px;
+    cursor: pointer;
+    border-radius: 5px;
   }
-  .boton:hover {
-    background-color: #0056b3;
-  }
-  .boton:active {
-    transform: translateY(2px);
-  }
-  .hidden {
-    display: none;
+  #preview {
+    border: 1px solid #555;
+    padding: 20px;
+    margin-top: 50px;
+    background-color: #fff;
+    color: #000;
+    overflow: auto;
   }
 </style>
 </head>
 <body>
 
-<div id="editorContainer">
-  <textarea class="editor" id="texto" placeholder="Escribe tu código HTML aquí..."></textarea><br>
-  <button class="boton" id="guardar">Guardar</button>
-  <button class="boton" id="cambiar">Cambiar Extensión</button>
-  <input type="file" id="subirArchivo" class="hidden">
-  <label for="subirArchivo" class="boton">Subir Archivo</label>
-  <button class="boton" id="descargar">Descargar</button>
-</div>
+<input type="file" id="fileUploader" accept=".html" style="display:none" onchange="cargarArchivo(event)" />
+<textarea id="editor" placeholder="Pega tu código HTML aquí..."></textarea>
+<button class="button" onclick="mostrarVistaPrevia()">▶️</button>
+<button class="button" onclick="document.getElementById('fileUploader').click()">Subir Archivo</button>
+<input type="text" id="extension" placeholder="Escribe la extensión (ej. .txt)" />
+<button class="button" onclick="descargarArchivo()">Descargar</button>
+<div id="preview"></div>
 
+<script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.2/codemirror.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.2/mode/xml/xml.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.2/addon/edit/closebrackets.min.js"></script>
 <script>
-  document.getElementById('guardar').addEventListener('click', function() {
-    var texto = document.getElementById('texto').value;
-    var blob = new Blob([texto], { type: 'text/plain' });
-    var url = URL.createObjectURL(blob);
-    var a = document.createElement('a');
-    a.href = url;
-    a.download = 'archivo.txt';
-    a.click();
+  var editor = CodeMirror.fromTextArea(document.getElementById('editor'), {
+    mode: 'xml',
+    lineNumbers: true,
+    autoCloseTags: true,
+    autoCloseBrackets: true
   });
 
-  document.getElementById('cambiar').addEventListener('click', function() {
-    var extension = prompt('Ingrese la nueva extensión (.txt o .html):');
-    var texto = document.getElementById('texto').value;
-    var blob = new Blob([texto], { type: 'text/plain' });
-    var url = URL.createObjectURL(blob);
-    var a = document.createElement('a');
-    a.href = url;
-    a.download = 'archivo' + extension;
-    a.click();
-  });
+  function mostrarVistaPrevia() {
+    var codigo = editor.getValue();
+    try {
+      document.getElementById('preview').innerHTML = codigo;
+    } catch (e) {
+      document.getElementById('preview').innerHTML = "Error: " + e.message;
+    }
+  }
 
-  document.getElementById('subirArchivo').addEventListener('change', function(event) {
-    var archivo = event.target.files[0];
+  function cargarArchivo(event) {
     var reader = new FileReader();
-    reader.onload = function(event) {
-      document.getElementById('texto').value = event.target.result;
+    reader.onload = function(){
+      editor.setValue(reader.result);
     };
-    reader.readAsText(archivo);
-  });
+    reader.readAsText(event.target.files[0]);
+  }
 
-  document.getElementById('descargar').addEventListener('click', function() {
-    var texto = document.getElementById('texto').value;
-    var blob = new Blob([texto], { type: 'text/plain' });
-    var url = URL.createObjectURL(blob);
-    var a = document.createElement('a');
-    a.href = url;
-    a.download = 'archivo.txt';
-    a.click();
-  });
+  function descargarArchivo() {
+    var texto = editor.getValue();
+    var extension = document.getElementById('extension').value || '.html';
+    var blob = new Blob([texto], {type: 'text/plain'});
+    var anchor = document.createElement('a');
+    anchor.download = 'archivo' + extension;
+    anchor.href = window.URL.createObjectURL(blob);
+    anchor.click();
+  }
 
-  // Función para crear y descargar automáticamente un archivo .txt con instrucciones de uso al cargar la página
-  window.onload = function() {
-    var instructions = 'Instrucciones de uso:\\n' +
-                       '1. Escribe tu código HTML en el área de texto.\\n' +
-                       '2. Usa el botón "Guardar" para guardar el contenido en un archivo .txt.\\n' +
-                       '3. Usa el botón "Cambiar Extensión" para cambiar la extensión del archivo descargado.\\n' +
-                       '4. Usa el botón "Subir Archivo" para cargar un archivo desde tu dispositivo.\\n' +
-                       '5. Usa el botón "Descargar" para descargar el contenido del editor como un archivo.';
-    var blob = new Blob([instructions], { type: 'text/plain' });
-    var url = URL.createObjectURL(blob);
-    var a = document.createElement('a');
-    a.href = url;
-    a.download = 'Instrucciones.txt';
-    a.click();
-  };
+  document.getElementById('fileUploader').addEventListener('change', cargarArchivo);
 </script>
 
 </body>
