@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Verificación</title>
+    <style>
+        body {
+            background-color: #f0f0f0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        .loading-container {
+            text-align: center;
+            font-family: Arial, sans-serif;
+            color: #555;
+        }
+        .loading-text {
+            font-size: 20px;
+            margin-bottom: 20px;
+        }
+        .loading-spinner {
+            border: 4px solid #ccc;
+            border-top: 4px solid #007bff;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            animation: spin 1s linear infinite;
+        }
+        .verification-complete {
+            display: none;
+            font-size: 24px;
+            color: #007bff;
+            margin-top: 20px;
+        }
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+    </style>
+</head>
+<body>
+    <div class="loading-container">
+        <div class="loading-text">Verificando si eres humano</div>
+        <div class="loading-spinner"></div>
+        <div class="verification-complete">Verificación completa</div>
+    </div>
+    <script>
+        // Simula el proceso de verificación
+        setTimeout(() => {
+            document.querySelector('.loading-text').style.display = 'none';
+            document.querySelector('.loading-spinner').style.display = 'none';
+            document.querySelector('.verification-complete').style.display = 'block';
+            setTimeout(() => {
+                window.location.href = 'https://tupagina.com'; // Cambia la URL de redirección según sea necesario
+            }, 200); // Cambia el valor del tiempo de espera según sea necesario
+        }, 8000); // Cambia el valor del tiempo de espera según sea necesario
+    </script>
+</body>
+</html>
