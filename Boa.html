@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Generador de códigos qr para archivos</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            background-color: #f9f9f9;
+        }
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 40px;
+            background-color: #ffffff;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            font-size: 40px;
+            margin-bottom: 30px;
+   
+         }
+        input[type="Text"] {
+            width: 100%;
+            padding: 10px;
+            font-size: 16px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            margin-bottom: 20px;
+        }
+        input[type="file"] {
+            width: 100%;
+            padding: 10px;
+            font-size: 16px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            margin-bottom: 20px;
+        }
+        #qrcode {
+            margin: 0 auto;
+        }
+        button {
+            background-color: #007bff;
+            color: #ffffff;
+            border: none;
+            padding: 10px 20px;
+            font-size: 16px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Qr Generator</h1>
+        <input type="file" id="fileInput">
+        <div id="textDiv">
+        <input type="text" id="textInput" placeholder="Introduce el texto">
+       </div>
+      
+        <button onclick="generateQR()">Generar Código QR</button>
+      
+        <div id="qrcode"></div>
+        
+        
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://cdn.rawgit.com/davidshimjs/qrcodejs/gh-pages/qrcode.min.js"></script>
+    <script>
+        function generateQR() {
+            const fileInput = document.getElementById("fileInput");
+            const qrcodeDiv = document.getElementById("qrcode");
+
+            // Obtén el archivo seleccionado por el usuario
+            const file = fileInput.files[0];
+            if (!file) {
+                alert("Por favor, selecciona un archivo.");
+                return;
+            }
+
+            // Crea un enlace de descarga para el archivo
+            const downloadLink = document.createElement("a");
+            downloadLink.href = URL.createObjectURL(file);
+            downloadLink.download = file.name;
+
+            // Crea un código QR con el enlace de descarga
+            const qrcode = new QRCode(qrcodeDiv, {
+                text: downloadLink.href,
+                width: 256,
+                height: 256,
+            });
+
+            // Muestra el código QR
+            qrcode.makeCode(downloadLink.href);
+        }
+       
+        function generateQR() {
+            var text = document.getElementById("textInput").value;
+            var qrcode = new QRCode(document.getElementById("qrcode"), {
+                text: text,
+                width: 128,
+                height: 128
+            });
+        }
+        function generateQR() {
+            var existingQR = document.getElementById("qrcode");
+            if (existingQR.innerHTML.trim() !== "") {
+                // Mostrar cuadro de diálogo personalizado
+                var userConfirmation = confirm("¿Estás seguro de eliminar el código QR existente antes de guardar el nuevo?");
+                if (!userConfirmation) {
+                    return; // El usuario canceló, no se genera un nuevo código QR
+                }
+            }
+
+            var text = document.getElementById("textInput").value;
+            var qrcode = new QRCode(document.getElementById("qrcode"), {
+                text: text,
+                width: 128,
+                height: 128
+            });
+        }
+    </script>
+</body>
+  </html>
+      
