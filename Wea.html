@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Editor de Código HTML</title>
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.2/codemirror.min.css">
+<link rel="stylesheet" href="codemirror.min.css">
 <style>
   body {
     background-color: #333;
@@ -50,9 +50,9 @@
 <button class="button" onclick="descargarArchivo()">Descargar</button>
 <div id="preview"></div>
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.2/codemirror.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.2/mode/xml/xml.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.2/addon/edit/closebrackets.min.js"></script>
+<script src="codemirror.min.js"></script>
+<script src="xml.min.js"></script>
+<script src="closebrackets.min.js"></script>
 <script>
   var editor = CodeMirror.fromTextArea(document.getElementById('editor'), {
     mode: 'xml',
