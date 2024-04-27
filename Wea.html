@@ -1,95 +1,129 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Editor de Código HTML</title>
-<link rel="stylesheet" href="codemirror.css">
-<style>
-  body {
-    background-color: #333;
-    font-family: 'Courier New', monospace;
-    color: #fff;
-    padding: 20px;
-  }
-  .CodeMirror {
-    border: 1px solid #555;
-    border-radius: 5px;
-    height: auto;
-  }
-  .button {
-    background-color: #0078d7;
-    border: none;
-    color: white;
-    padding: 10px 20px;
-    text-align: center;
-    text-decoration: none;
-    display: inline-block;
-    font-size: 16px;
-    margin: 4px 2px;
-    cursor: pointer;
-    border-radius: 5px;
-  }
-  #preview {
-    border: 1px solid #555;
-    padding: 20px;
-    margin-top: 50px;
-    background-color: #fff;
-    color: #000;
-    overflow: auto;
-  }
-</style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Editor de Código</title>
+    <link rel="stylesheet" href="codemirror.css">
+    <style>
+        body {
+            font-style: cursive;
+            background-color: #f4f7f9; 
+            margin: 0;
+            padding: 0;
+            color: #333; 
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #fff;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+        }
+        h1, h2 {
+            color: #007bff; 
+            font-family: cursive;
+            font-size: 50px;
+            
+        }
+        select {
+            width: 100%;
+            padding: 10px;
+            font-size: 14px;
+            margin-bottom: 20px;
+            background-color: #f4f7f8; 
+            color: #333; 
+            border: none;
+            border-bottom: 2px solid #008bff;
+            outline: none;
+        }
+        textarea {
+            width: 100%;
+            height: 300px;
+            border: 1px solid #ccc;
+            padding: 10px;
+            font-size: 14px;
+            margin-bottom: 20px;
+            background-color: #f4f7f9; 
+            color: #333; /* Texto oscuro */
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            border-radius: 4px;
+        }
+        .download-button {
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            padding: 10px 20px;
+            font-size: 14px;
+            border-radius: 4px;
+            cursor: pointer;
+            }
+        .cursive{
+            font-family: cursive;
+            font-size: 30px;
+        }
+            .centeredButton {
+        background-image: url("logo1.jpg");
+        background-position: center;
+        background-repeat: no-repeat;
+        background-size: contain;
+        padding: 10px 20px;
+            font-size: 14px;
+            border-radius: 4px;
+            cursor: pointer;
+            color: #fff;
+            border: none;
+        }
+    </style>
+    <script src="codemirror.js"></script>
+    <script src="closetbrackets.js"></script>
+    <script src="xml.js"></script>
 </head>
 <body>
+    <div class="container">
+        <h1>Editor de Código</h1>
+        <label class="cursive" for="language-select">Selecciona un lenguaje:</label>
+        <select id="language-select">
+            <option value="html">HTML</option>
+            <option value="python">Python</option>
+            <option value="java">Java</option>
+        </select>
+        <textarea "id="code-editor"></textarea>
+        <button class="centeredButton" onclick="downloadCode()"></button>
+    </div>
+    <script>
+        const codeEditor = CodeMirror.fromTextArea(document.getElementById('code-editor'), {
+            mode: 'htmlmixed', 
+            theme: 'default',
+            lineNumbers: true,
+            autoCloseTags: true,
+            matchBrackets: true,
+        });
 
-<input type="file" id="fileUploader" accept=".html" style="display:none" onchange="cargarArchivo(event)" />
-<textarea id="editor" placeholder="Pega tu código HTML aquí..."></textarea>
-<button class="button" onclick="mostrarVistaPrevia()">▶️</button>
-<button class="button" onclick="document.getElementById('fileUploader').click()">Subir Archivo</button>
-<input type="text" id="extension" placeholder="Escribe la extensión (ej. .txt)" />
-<button class="button" onclick="descargarArchivo()">Descargar</button>
-<div id="preview"></div>
+        const languageSelect = document.getElementById('language-select');
+        languageSelect.addEventListener('change', function() {
+            const selectedLanguage = languageSelect.value;
+            if (selectedLanguage === 'python') {
+                codeEditor.setOption('mode', 'python');
+            } else if (selectedLanguage === 'java') {
+                codeEditor.setOption('mode', 'text/x-java');
+            } else {
+                codeEditor.setOption('mode', 'htmlmixed');
+            }
+        });
 
-<script src="codemirror.js"></script>
-<script src="xml.js"></script>
-<script src="closebrackets.js"></script>
-<script>
-  var editor = CodeMirror.fromTextArea(document.getElementById('editor'), {
-    mode: 'xml',
-    lineNumbers: true,
-    autoCloseTags: true,
-    autoCloseBrackets: true
-  });
-
-  function mostrarVistaPrevia() {
-    var codigo = editor.getValue();
-    try {
-      document.getElementById('preview').innerHTML = codigo;
-    } catch (e) {
-      document.getElementById('preview').innerHTML = "Error: " + e.message;
-    }
-  }
-
-  function cargarArchivo(event) {
-    var reader = new FileReader();
-    reader.onload = function(){
-      editor.setValue(reader.result);
-    };
-    reader.readAsText(event.target.files[0]);
-  }
-
-  function descargarArchivo() {
-    var texto = editor.getValue();
-    var extension = document.getElementById('extension').value || '.html';
-    var blob = new Blob([texto], {type: 'text/plain'});
-    var anchor = document.createElement('a');
-    anchor.download = 'archivo' + extension;
-    anchor.href = window.URL.createObjectURL(blob);
-    anchor.click();
-  }
-
-  document.getElementById('fileUploader').addEventListener('change', cargarArchivo);
-</script>
-
+        function downloadCode() {
+            const selectedLanguage = languageSelect.value;
+            const code = codeEditor.getValue();
+            const blob = new Blob([code], { type: 'text/plain' });
+            const filename = `yourcode.${selectedLanguage}`;
+            const url = URL.createObjectURL(blob);
+            const link = document.createElement('a');
+            link.href = url;
+            link.download = filename;
+            link.click();
+        }
+    </script>
 </body>
 </html>
