@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Editor de Código HTML</title>
-<link rel="stylesheet" href="codemirror.min.css">
+<link rel="stylesheet" href="codemirror.css">
 <style>
   body {
     background-color: #333;
@@ -50,9 +50,9 @@
 <button class="button" onclick="descargarArchivo()">Descargar</button>
 <div id="preview"></div>
 
-<script src="codemirror.min.js"></script>
-<script src="xml.min.js"></script>
-<script src="closebrackets.min.js"></script>
+<script src="codemirror.js"></script>
+<script src="xml.js"></script>
+<script src="closebrackets.js"></script>
 <script>
   var editor = CodeMirror.fromTextArea(document.getElementById('editor'), {
     mode: 'xml',
