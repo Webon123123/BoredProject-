@@ -49,32 +49,10 @@
             color: #333;
             box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
             border-radius: 4px;
-            
+            transition: border-color 0.3s ease;
         }
 
-        .loading-overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(255, 255, 255, 0.8);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            opacity: 0;
-            pointer-events: none;
-            transition: opacity 0.3s ease;
-        }
-        .loading-overlay.active {
-            opacity: 1;
-            pointer-events: auto;
-        }
-        .loading-text {
-            font-size: 18px;
-            font-weight: 600;
-        }
-; 
+ 
          .image {
         background-image: url("logo1.jpg");
         background-position: center;
@@ -171,4 +149,5 @@ function previewCode() {
         /* ... */
     </script>
 </body>
-</html>
+    </html>
+                                             
